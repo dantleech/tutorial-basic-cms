@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Doctrine PHPCR Initializer !-->
+        <service id="acme.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+            <argument type="collection">
+                <argument>/cms</argument>
+                <argument>/cms/pages</argument>
+                <argument>/cms/posts</argument>
+            </argument>
+            <tag name="doctrine_phpcr.initializer"/>
+        </service>
+
+        <!-- Admin Services !-->
+        <service id="acme.admin.page" class="Acme\BasicCmsBundle\Admin\PageAdmin">
+
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+
+            <tag 
+                name="sonata.admin" 
+                manager_type="doctrine_phpcr" 
+                group="Basic CMS" 
+                label="Page" 
+            />
+            <argument/>
+            <argument>Acme\BasicCmsBundle\Document\Page</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+
+        <service id="acme.admin.post" class="Acme\BasicCmsBundle\Admin\PostAdmin">
+
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+
+            <tag 
+                name="sonata.admin" 
+                manager_type="doctrine_phpcr" 
+                group="Basic CMS" 
+                label="Blog Posts" 
+            />
+            <argument/>
+            <argument>Acme\BasicCmsBundle\Document\Post</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+    </services>
+</container>

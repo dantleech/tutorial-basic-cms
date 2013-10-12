@@ -1,0 +1,56 @@
+cmf_routing_auto:
+
+    auto_route_mapping:
+
+        Acme\BasicCmsBundle\Document\Page:
+
+            # generate or use path components leading up to the final part of the path
+            content_path:
+                pages:
+                    provider: 
+                        name: specified
+                        path: /cms/routes/page
+                    exists_action:
+                        strategy: use
+                    not_exists_action:
+                        strategy: create
+            content_name:
+                provider: 
+                    name: content_method
+                    method: getTitle
+                exists_action: 
+                    strategy: auto_increment
+                    pattern: -%d
+                not_exists_action: 
+                    strategy: create
+
+        Acme\BasicCmsBundle\Document\Post:
+
+            content_path:
+                blog_path:
+                    provider:
+                        name: specified
+                        path: /cms/routes/post
+                    exists_action: 
+                        strategy: use
+                    not_exists_action: 
+                        strategy: create
+                date:
+                    provider:
+                        name: content_datetime
+                        method: getDate
+                        date_format: Y/m/d
+                    exists_action:
+                        strategy: use
+                    not_exists_action:
+                        strategy: create
+
+            content_name:
+                provider: 
+                    name: content_method
+                    method: getTitle
+                exists_action: 
+                    strategy: auto_increment
+                    pattern: -%d
+                not_exists_action: 
+                    strategy: create
