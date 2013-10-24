@@ -15,14 +15,24 @@ trait ContentTrait
     protected $parent;
 
     /**
-     * @PHPCRODM\String()
+     * @PHPCRODM\NodeName()
      */
     protected $title;
 
     /**
-     * @PHPCRODM\String()
+     * @PHPCRODM\String(nullable=true)
      */
     protected $content;
+
+    /**
+     * @PHPCRODM\Referrers(referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route", referencedBy="content")
+     */
+    protected $routes;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getParent() 
     {
@@ -53,5 +63,10 @@ trait ContentTrait
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    public function getRoutes()
+    {
+        return $this->routes;
     }
 }

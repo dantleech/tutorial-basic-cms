@@ -18,11 +18,6 @@ class Post implements RouteReferrersReadInterface
     protected $date;
 
     /**
-     * @PHPCRODM\Referrers(referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route", referencedBy="content")
-     */
-    protected $routes;
-
-    /**
      * @PHPCRODM\PrePersist()
      */
     public function updateDate()
@@ -40,10 +35,5 @@ class Post implements RouteReferrersReadInterface
     public function setDate($date)
     {
         $this->date = $date;
-    }
-
-    public function getRoutes()
-    {
-        return $this->routes;
     }
 }
