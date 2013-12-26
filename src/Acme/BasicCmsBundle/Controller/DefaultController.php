@@ -24,7 +24,9 @@ class DefaultController extends Controller
             throw new NotFoundHttpException('No homepage configured');
         }
 
-        // ????
+        return $this->forward('AcmeBasicCmsBundle:Default:page', array(
+            'contentDocument' => $homepage
+        ));
     }
 
     /**
@@ -43,8 +45,8 @@ class DefaultController extends Controller
 
     /**
      * @Route(
-     *   name="make_homepage", 
-     *   pattern="/_cms/make_homepage/{id}", 
+     *   name="make_homepage",
+     *   pattern="/_cms/make_homepage/{id}",
      *   requirements={"id": ".+"}
      * )
      */
@@ -65,9 +67,9 @@ class DefaultController extends Controller
         $cms->setHomepage($page);
         $dm->persist($page);
         $dm->flush();
-
+				
         return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array( 
-            'page' => $page->getId()
+            'id' => $page->getId()
         )));
     }
 }
